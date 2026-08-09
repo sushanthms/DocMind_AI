@@ -15,7 +15,7 @@ function Upload(){
         }
 
         const response = await axios.post(
-    "http://127.0.0.1:8000/api/upload",
+    "https://docmind-ai-backend-mcto.onrender.com/api/upload",
     formData
 );
 
