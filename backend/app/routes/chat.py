@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.services.embedding import model
+from app.services.embedding import create_document_embedding
 from app.services.vector_db import search_documents
 from app.services.llm import generate_answer
 
@@ -9,7 +9,7 @@ router = APIRouter()
 @router.get("/chat")
 def chat(question: str):
 
-    question_embedding = model.encode(question)
+    question_embedding = create_document_embedding.encode(question)
 
     results = search_documents(
         question_embedding,
