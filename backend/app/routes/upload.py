@@ -42,13 +42,14 @@ async def upload_files(files: list[UploadFile] = File(...)): #File(...)) means r
             documents.append(
             {
                 "filename": file.filename,
-                "path": str(file_path),
                 "text": text,
                 "chunks": chunks,
                  "embeddings": embeddings.tolist(), # tolosit() converst numpy array into json
                  "document_embedding": document_embedding.tolist()
             }
         )
+
+        file_path.unlink()
 
         uploaded_files.append(file.filename)
 
