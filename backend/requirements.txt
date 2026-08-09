@@ -8,3 +8,5 @@ huggingface_hub
 chromadb
 langchain-text-splitters
 langchain-ollama
+onnxruntime
+transformers

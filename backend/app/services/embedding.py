@@ -1,11 +1,94 @@
-import os
 import numpy as np
-from huggingface_hub import InferenceClient
+import onnxruntime as ort
 
-client = InferenceClient(
-    provider="hf-inference",
-    api_key=os.getenv("HF_TOKEN")
+from huggingface_hub import hf_hub_download
+from transformers import AutoTokenizer
+
+
+MODEL_REPO = "sentence-transformers/all-MiniLM-L6-v2"
+
+
+tokenizer = AutoTokenizer.from_pretrained(
+    MODEL_REPO
 )
+
+
+model_path = hf_hub_download(
+    repo_id=MODEL_REPO,
+    filename="onnx/model.onnx"
+)
+
+
+session = ort.InferenceSession(
+    model_path,
+    providers=["CPUExecutionProvider"]
+)
+
+
+def mean_pooling(token_embeddings, attention_mask):
+
+    mask = np.expand_dims(
+        attention_mask,
+        axis=-1
+    )
+
+    mask = np.broadcast_to(
+        mask,
+        token_embeddings.shape
+    )
+
+    summed = np.sum(
+        token_embeddings * mask,
+        axis=1
+    )
+
+    count = np.clip(
+        mask.sum(axis=1),
+        1e-9,
+        None
+    )
+
+    return summed / count
+
+
+def encode(text):
+
+    encoded = tokenizer(
+        text,
+        padding=True,
+        truncation=True,
+        max_length=256,
+        return_tensors="np"
+    )
+
+    inputs = {
+        "input_ids": encoded["input_ids"],
+        "attention_mask": encoded["attention_mask"]
+    }
+
+    if "token_type_ids" in encoded:
+        inputs["token_type_ids"] = encoded["token_type_ids"]
+
+    outputs = session.run(
+        None,
+        inputs
+    )
+
+    token_embeddings = outputs[0]
+
+    embedding = mean_pooling(
+        token_embeddings,
+        encoded["attention_mask"]
+    )
+
+    embedding = embedding / np.linalg.norm(
+        embedding,
+        axis=1,
+        keepdims=True
+    )
+
+    return embedding[0]
+
 
 def create_embeddings(chunks):
 
@@ -13,20 +96,13 @@ def create_embeddings(chunks):
 
     for chunk in chunks:
 
-        embedding = client.feature_extraction(
-            chunk,
-            model="sentence-transformers/all-MiniLM-L6-v2"
-        )
+        embedding = encode(chunk)
 
-        embeddings.append(np.array(embedding).flatten())
+        embeddings.append(embedding)
 
     return np.array(embeddings)
 
+
 def create_document_embedding(text):
 
-    embedding = client.feature_extraction(
-        text,
-        model="sentence-transformers/all-MiniLM-L6-v2"
-    )
-
-    return np.array(embedding).flatten()
+    return encode(text)
