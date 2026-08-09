@@ -15,7 +15,7 @@ function Upload(){
         }
 
         const response = await axios.post( // sending a post request
-            "http://127.0.0.1:8000/api/upload",// this is FastAPI endpoint
+            "https://docmind-ai-backend-mcto.onrender.com/api/upload",// this is FastAPI endpoint
             formData
         );
 
