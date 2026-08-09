@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+pymupdf
+numpy
+scikit-learn
+sentence-transformers
+chromadb
+langchain-text-splitters

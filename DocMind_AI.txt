@@ -1,0 +1,10 @@
+pip install fastapi uvicorn python-multipart
+pip install pymupdf. used to read, extract, modify, and create PDF documents. compared to other it can extract images, edit pdf, speed, 
+pip install langchain-text-splitters to do chunking
+pip install sentence-transformers to install embedding models
+
+in python list we loop through every embeddings and compare, does brute-force search.
+Chroma builds vector space and has vector index, saves in memory and searches embedded vector in the vector space.
+Chroma also compares embeddings but it measures similarity. Chroma avoids comparing against every embedding.
+Chroma uses vector index. python list will disappear after programming because it stores in ram.
+Chroma itself stores metadata storing, in python we build it
