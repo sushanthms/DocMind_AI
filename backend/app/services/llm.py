@@ -1,12 +1,18 @@
-from langchain_ollama import ChatOllama
+import os
+from google import genai
+from dotenv import load_dotenv
 
-llm = ChatOllama(
-    model="llama3.2",
-    temperature=0
+load_dotenv()
+
+client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY")
 )
 
 def generate_answer(prompt):
 
-    response = llm.invoke(prompt)
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
+        contents=prompt
+    )
 
-    return response.content
+    return response.text

@@ -7,6 +7,7 @@ scikit-learn
 huggingface_hub
 chromadb
 langchain-text-splitters
-langchain-ollama
 onnxruntime
 transformers
+google-genai
+python-dotenv

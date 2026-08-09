@@ -1,7 +1,11 @@
-from langchain_ollama import ChatOllama
+import os
+from dotenv import load_dotenv
+from google import genai
 
-llm = ChatOllama(
-    model="llama3.2"
+load_dotenv()
+
+client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY")
 )
 
 def generate_cluster_name(documents):
@@ -21,6 +25,9 @@ Give a short category name.
 Only return the category name.
 """
 
-    response = llm.invoke(prompt)
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
+        contents=prompt
+    )
 
-    return response.content
+    return response.text

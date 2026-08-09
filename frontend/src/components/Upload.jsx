@@ -14,10 +14,12 @@ function Upload(){
             formData.append("files", file);// "files" is the field name. Because FastAPI expects files: list[UploadFile]
         }
 
-        const response = await axios.post( // sending a post request
-            "https://docmind-ai-backend-mcto.onrender.com/api/upload",// this is FastAPI endpoint
-            formData
-        );
+        const response = await axios.post(
+    "http://127.0.0.1:8000/api/upload",
+    formData
+);
+
+        console.log("UPLOAD RESPONSE:", response.data);
 
         setUploadedFiles(response.data.files);
 

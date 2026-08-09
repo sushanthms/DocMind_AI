@@ -42,16 +42,26 @@ async def upload_files(files: list[UploadFile] = File(...)): #File(...)) means r
                 buffer # it represents a temporary place where data is written. buffer is a variable name
             )
 
+            print("1. File received")
+
             text = extract_text_from_pdf(file_path)
+            print("2. Text extracted")
+
             chunks = create_chunks(text)
+            print("3. Chunks created:", len(chunks))
+
             embeddings = create_embeddings(chunks)
+            print("4. Chunk embeddings created")
+
             document_embedding = create_document_embedding(text)
-            
+            print("5. Document embedding created")
+
             store_embeddings(
-                    file.filename,
-                    chunks,
-                    embeddings
+                file.filename,
+                chunks,
+                embeddings
             )
+            print("6. Stored in Chroma")
 
             documents.append(
             {

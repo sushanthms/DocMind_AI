@@ -9,7 +9,7 @@ router = APIRouter()
 @router.get("/chat")
 def chat(question: str):
 
-    question_embedding = create_document_embedding.encode(question)
+    question_embedding = create_document_embedding(question)
 
     results = search_documents(
         question_embedding,
