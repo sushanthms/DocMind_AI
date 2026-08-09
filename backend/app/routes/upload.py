@@ -22,6 +22,18 @@ async def upload_files(files: list[UploadFile] = File(...)): #File(...)) means r
 
     for file in files:
 
+        existing_document = next(
+            (
+                doc
+                for doc in documents
+                if doc["filename"] == file.filename
+            ),
+            None
+        )
+
+        if existing_document is not None:
+            continue
+
         file_path = UPLOAD_DIR / file.filename
 
         with open(file_path, "wb") as buffer: # with Automatically closes the file. otherwise we have to write file.close()
@@ -29,10 +41,12 @@ async def upload_files(files: list[UploadFile] = File(...)): #File(...)) means r
                 file.file, # The uploaded file.
                 buffer # it represents a temporary place where data is written. buffer is a variable name
             )
+
             text = extract_text_from_pdf(file_path)
             chunks = create_chunks(text)
             embeddings = create_embeddings(chunks)
             document_embedding = create_document_embedding(text)
+            
             store_embeddings(
                     file.filename,
                     chunks,
