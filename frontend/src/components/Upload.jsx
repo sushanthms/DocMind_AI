@@ -20,8 +20,11 @@ function Upload(){
 );
 
         console.log("UPLOAD RESPONSE:", response.data);
+        console.log("FILES FROM BACKEND:", response.data.files);
 
-        setUploadedFiles(response.data.files);
+        setUploadedFiles(
+        Array.from(files).map(file => file.name)
+    );
 
         alert(response.data.message);
 

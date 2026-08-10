@@ -16,23 +16,11 @@ UPLOAD_DIR = Path("uploads")# path to save the files. before file_path = "upload
 UPLOAD_DIR.mkdir(exist_ok=True)# If it exists, ok.
 
 @router.post("/upload")# It is called as decorator. It connects a URL with a function.
-async def upload_files(files: list[UploadFile] = File(...)): # File(...)) means required. The user must upload files.
+async def upload_files(files: list[UploadFile] = File(...)): #File(...)) means required. The user must upload files.
 
     uploaded_files = []
 
     for file in files:
-
-        existing_document = next(
-            (
-                doc
-                for doc in documents
-                if doc["filename"] == file.filename
-            ),
-            None
-        )
-
-        if existing_document is not None:
-            continue
 
         file_path = UPLOAD_DIR / file.filename
 
@@ -41,39 +29,26 @@ async def upload_files(files: list[UploadFile] = File(...)): # File(...)) means 
                 file.file, # The uploaded file.
                 buffer # it represents a temporary place where data is written. buffer is a variable name
             )
-
-            print("1. File received")
-
             text = extract_text_from_pdf(file_path)
-            print("2. Text extracted")
-
             chunks = create_chunks(text)
-            print("3. Chunks created:", len(chunks))
-
             embeddings = create_embeddings(chunks)
-            print("4. Chunk embeddings created")
-
             document_embedding = create_document_embedding(text)
-            print("5. Document embedding created")
-
             store_embeddings(
-                file.filename,
-                chunks,
-                embeddings
+                    file.filename,
+                    chunks,
+                    embeddings
             )
-            print("6. Stored in Chroma")
 
             documents.append(
             {
                 "filename": file.filename,
+                "path": str(file_path),
                 "text": text,
                 "chunks": chunks,
-                 "embeddings": embeddings.tolist(), # tolosit() converts numpy array into json
+                 "embeddings": embeddings.tolist(), # tolosit() converst numpy array into json
                  "document_embedding": document_embedding.tolist()
             }
         )
-
-        file_path.unlink() # deletes the pdf from uploads
 
         uploaded_files.append(file.filename)
 
