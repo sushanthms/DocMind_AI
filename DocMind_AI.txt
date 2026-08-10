@@ -16,3 +16,5 @@ Gemini does not search the vectors.
 Gemini does not calculate which chunks are relevant.
 ChromaDB does the retrieval.
 Gemini reads the retrieved text chunks and generates the natural-language answer.
+
+For every question search_embedding fucntion return 10 nearest embedding vectors(chunks)

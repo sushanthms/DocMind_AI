@@ -13,10 +13,10 @@ def chat(question: str):
 
     results = search_documents(
         question_embedding,
-        n_results=10
+        n_results=10 # Chroma finds the 10 chunks that are most similar to this question.
     )
 
-    chunks = results["documents"][0]
+    chunks = results["documents"][0] # documents stores chunks in [[here chunks are stored]], so we wrote 0 means first position
     print("Retrieved chunks:")
     for i, chunk in enumerate(chunks):
       print("CHUNK", i)

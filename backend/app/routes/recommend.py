@@ -21,7 +21,7 @@ def recommend(filename:str): # filename should be a string.
 
 # target["document_embedding"] is the document embedding from the database(documents list), user sends only the filename
 # target["document_embedding"] is the embedding of the requested file.
-# target["document_embedding"] is the document we choosed from the databse which matched the filename in the url.
+# target["document_embedding"] is the document we choosed from the database which matched the filename in the url.
 # doc["document_embedding"] is the iteration, it is all files one by one we iterate
 
     results=[]
@@ -50,6 +50,6 @@ def recommend(filename:str): # filename should be a string.
     return results[:5]
 # results contains two things filename and similarity score.
 # x means filename and similarity score. so we choose similarity score only by using x["similarity"]
-# def get_similarity(x):
+# def get_similarity(x): this is equal to lambda
 #   return x["similarity"]
 # lambda is a Python keyword used to create a small function without name

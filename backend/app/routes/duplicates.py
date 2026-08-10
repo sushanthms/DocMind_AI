@@ -1,4 +1,4 @@
-# similarity and duplicates are some same, but simialirty give stop 5 documents. duplicates has high threshold value(0.9)
+# similarity and duplicates are same, but simialirty gives top 5 documents. duplicates has high threshold value(0.9)
 from fastapi import APIRouter
 
 from app.models.documents import documents

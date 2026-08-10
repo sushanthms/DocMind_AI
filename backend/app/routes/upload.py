@@ -16,7 +16,7 @@ UPLOAD_DIR = Path("uploads")# path to save the files. before file_path = "upload
 UPLOAD_DIR.mkdir(exist_ok=True)# If it exists, ok.
 
 @router.post("/upload")# It is called as decorator. It connects a URL with a function.
-async def upload_files(files: list[UploadFile] = File(...)): #File(...)) means required. The user must upload files.
+async def upload_files(files: list[UploadFile] = File(...)): # File(...)) means required. The user must upload files.
 
     uploaded_files = []
 
@@ -68,12 +68,12 @@ async def upload_files(files: list[UploadFile] = File(...)): #File(...)) means r
                 "filename": file.filename,
                 "text": text,
                 "chunks": chunks,
-                 "embeddings": embeddings.tolist(), # tolosit() converst numpy array into json
+                 "embeddings": embeddings.tolist(), # tolosit() converts numpy array into json
                  "document_embedding": document_embedding.tolist()
             }
         )
 
-        file_path.unlink()
+        file_path.unlink() # deletes the pdf from uploads
 
         uploaded_files.append(file.filename)
 
