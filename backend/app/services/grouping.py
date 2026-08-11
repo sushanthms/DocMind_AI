@@ -1,6 +1,8 @@
 from sklearn.cluster import KMeans
 import numpy as np
 
+from app.services.cluster_naming import generate_cluster_name
+
 def group_documents(documents, n_clusters=3):
 
     if len(documents) == 0:
@@ -28,11 +30,17 @@ def group_documents(documents, n_clusters=3):
 
     for label, doc in zip(labels, documents):
 
-        cluster_name = f"Cluster {label}"
+         if label not in clusters:
+            clusters[label] = []
 
-        if cluster_name not in clusters:
-            clusters[cluster_name] = []
+         clusters[label].append(doc["filename"])
 
-        clusters[cluster_name].append(doc["filename"])
+    named_clusters = {}
 
-    return clusters
+    for label, files in clusters.items():
+
+        cluster_name = generate_cluster_name(files)
+
+        named_clusters[cluster_name] = files
+
+    return named_clusters
