@@ -30,17 +30,20 @@ def group_documents(documents, n_clusters=3):
 
     for label, doc in zip(labels, documents):
 
-         if label not in clusters:
-            clusters[label] = []
+         cluster_name = f"Cluster {label}"
 
-         clusters[label].append(doc["filename"])
+         if cluster_name not in clusters:
+            clusters[cluster_name] = []
 
-    named_clusters = {}
+         clusters[cluster_name].append(doc["filename"]) # {"Cluster1":["resume.pdf"]} if next file is cluster 1 then it is added inside cluster 1.
 
-    for label, files in clusters.items():
+    # Renaming each cluster using Gemini
+    named_groups = {}
 
-        cluster_name = generate_cluster_name(files)
+    for cluster, files in clusters.items():
 
-        named_clusters[cluster_name] = files
+        name = generate_cluster_name(files)
 
-    return named_clusters
+        named_groups[name] = files
+
+    return named_groups
