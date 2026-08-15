@@ -8,7 +8,13 @@ from app.routes import recommend
 from app.routes import duplicates
 from app.routes import grouping
 
+from app.services.demo_documents import load_demo_documents
+
 app = FastAPI(title="DocMind AI")
+
+@app.on_event("startup")
+def startup_event():
+    load_demo_documents()
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(
+app.include_router( # Takes the routes from upload.py and puts /api before them.
     upload.router,
     prefix="/api"
 )

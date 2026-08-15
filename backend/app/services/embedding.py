@@ -2,7 +2,7 @@ import numpy as np
 import onnxruntime as ort
 
 from huggingface_hub import hf_hub_download
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer # AutoTokenizer is not the tokenizer, it is a class that can automatically load the correct tokenizer for a model.
 
 
 MODEL_REPO = "sentence-transformers/all-MiniLM-L6-v2"
@@ -87,7 +87,7 @@ def encode(text):
         keepdims=True
     )
 
-    return embedding[0]
+    return embedding[0] # encode() takes one text at a time, it gives output as [[]] so we write [0] to get first row
 
 
 def create_embeddings(chunks):

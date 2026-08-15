@@ -30,15 +30,15 @@ function Chat(){
 
     const data = await askQuestion(question);
 
-    setAnswer(data.answer);// it saves tge answer got from the backend
+    setAnswer(data.answer);// it saves the answer got from the backend
 
     setSources(data.sources);// it saves the sources got from the backend
 
     
-};
+};  
 
 const groupDocuments = async () => { // It asks the backend to group the uploaded documents. 
-// not onClick={groupDocuments()} because you want React to call it when clicked, not immediately while rendering.
+// not onClick={groupDocuments()} because we want React to call it when clicked, not immediately while rendering.
 // setQuestion stores the question 
 // onChange tells or gives signal that the button or question field is updated, means question is entered, input field's value has changed.
 // question is passed as an argument to the askQuestion function.
@@ -197,7 +197,7 @@ const findSimilarDocuments = async () => {
 
                         {
                             Object.entries(groups).map(
-                                ([groupName, files]) => (
+                                ([groupName, files]) => ( // destructuring. the names given while destructuring can be any name, but their order matters.
 
                                     <div
                                         key={groupName}
@@ -419,9 +419,9 @@ const findSimilarDocuments = async () => {
                 <div className="flex flex-col sm:flex-row gap-3">
 
                     <input
-                        value={question}
-                        onChange={e => setQuestion(e.target.value)}
-                        placeholder="What are the projects of Sushanth?"
+                        value={question} // used when React needs to control the input. makes sure the input shows the current state value
+                        onChange={e => setQuestion(e.target.value)} // everytime when we type something onChange runs
+                        placeholder="What are the projects of Sushanth?" // e.target.value gets the value from the input box
                         className="flex-1 border border-gray-300 rounded-xl
                                    px-4 py-3 bg-gray-50
                                    focus:outline-none focus:ring-2

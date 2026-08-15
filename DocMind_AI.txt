@@ -17,4 +17,23 @@ Gemini does not calculate which chunks are relevant.
 ChromaDB does the retrieval.
 Gemini reads the retrieved text chunks and generates the natural-language answer.
 
-For every question search_embedding fucntion return 10 nearest embedding vectors(chunks)
+ONNX Runtime is used to run the neural network model.
+
+backend/app/routes/upload.py
+async def upload_files(files: list[UploadFile] = File(...)):
+
+backend/app/services/pdf_processor.py
+extract_text_from_pdf()
+
+backend/app/services/chunking.py
+create_chunks()
+
+
+
+backend/app/services/embedding.py
+create_embeddings()
+create_document_embedding()  
+
+backend/app/services/vector_db.py
+store_embeddings()
+search_documents() Searches Chroma for chunks that are most similar to the user's question.    

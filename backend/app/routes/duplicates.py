@@ -15,10 +15,10 @@ def check_duplicates(filename: str):
 
     for doc in documents:
         print(doc["filename"])
-        if doc["filename"] == filename:
+        if doc["filename"] == filename: # this checks if the target document in uploaded document means the document in select document list is same as the documents in the documents list. then fic=x that document as target then we compare the target docuemnt with all documents in the documents list.
             target = doc
             break
-
+# First, we check whether the document selected from the uploaded document list exists in the `documents` list. If the filename matches, we assign that document to `target`. Then, we compare the target document with all the documents in the `documents` list using their embeddings to find similar or duplicate documents.
     if target is None:
 
         return {

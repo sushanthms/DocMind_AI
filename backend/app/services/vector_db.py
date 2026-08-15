@@ -36,7 +36,7 @@ def store_embeddings(filename, chunks, embeddings): # Python replaces this param
 
     )
 
-# This is a fucntion declared here, query_embedding is a parameter, it will be replaced real calculated value later where this fucntion is used
+# This is a fucntion declared here, query_embedding is a parameter, it will be replaced by real calculated value later where this fucntion is used
 def search_documents(
     query_embedding,
     n_results=5

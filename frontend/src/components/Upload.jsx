@@ -4,7 +4,15 @@ import axios from "axios"; // communicate with backend. used to make HTTP reques
 function Upload(){
 
     const [files,setFiles] = useState([]);// [] is empty array
-    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const demoFiles = [
+    "Hii.pdf",
+    "Internship Offer_Sushanth M S.pdf",
+    "Internship Offer_Sushanth M S_signed - Copy.pdf",
+    "Punch.pdf",
+    "Sushanth_M_S_Resume.pdf"
+];
+
+const [uploadedFiles, setUploadedFiles] = useState(demoFiles);
 
     const uploadFiles = async()=>{
 
@@ -15,16 +23,17 @@ function Upload(){
         }
 
         const response = await axios.post(
-    "https://docmind-ai-backend-mcto.onrender.com/api/upload",
+    "http://127.0.0.1:8000/api/upload",
     formData
 );
 
         console.log("UPLOAD RESPONSE:", response.data);
         console.log("FILES FROM BACKEND:", response.data.files);
 
-        setUploadedFiles(
-        Array.from(files).map(file => file.name)
-    );
+        setUploadedFiles(prev => [
+    ...prev,
+    ...Array.from(files).map(file => file.name)
+]);
 
         alert(response.data.message);
 
@@ -105,7 +114,7 @@ function Upload(){
                     />
 
                     {
-                        files.length > 0 && (
+                        files.length > 0 && ( // files means the setstate files.
 
                             <div className="mt-4 bg-blue-50
                                             border border-blue-100
