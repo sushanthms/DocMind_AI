@@ -146,7 +146,7 @@ const findSimilarDocuments = async () => {
                     onClick={groupDocuments}
                     className="group bg-blue-600 text-white px-5 py-3.5 rounded-xl
                                font-medium shadow-sm hover:bg-blue-700
-                               hover:shadow-md transition-all duration-200"
+                               hover:shadow-md transition-all duration-200 cursor-pointer"
                 >
                     🗂️ Group Documents
                 </button>
@@ -155,7 +155,7 @@ const findSimilarDocuments = async () => {
                     onClick={findDuplicates}
                     className="group bg-red-500 text-white px-5 py-3.5 rounded-xl
                                font-medium shadow-sm hover:bg-red-600
-                               hover:shadow-md transition-all duration-200"
+                               hover:shadow-md transition-all duration-200 cursor-pointer"
                 >
                     🔍 Find Duplicates
                 </button>
@@ -164,7 +164,7 @@ const findSimilarDocuments = async () => {
                     onClick={findSimilarDocuments}
                     className="group bg-emerald-600 text-white px-5 py-3.5 rounded-xl
                                font-medium shadow-sm hover:bg-emerald-700
-                               hover:shadow-md transition-all duration-200"
+                               hover:shadow-md transition-all duration-200 cursor-pointer"
                 >
                     🔎 Find Similar
                 </button>
@@ -434,7 +434,7 @@ const findSimilarDocuments = async () => {
                         className="bg-blue-600 text-white px-7 py-3
                                    rounded-xl font-medium
                                    hover:bg-blue-700 shadow-sm
-                                   hover:shadow-md transition"
+                                   hover:shadow-md transition cursor-pointer"
                     >
                         Ask →
                     </button>
