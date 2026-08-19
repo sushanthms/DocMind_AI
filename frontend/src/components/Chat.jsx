@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react";
+import ReactMarkdown from "react-markdown";
 import { askQuestion, getGroups, getDuplicates, getSimilarDocuments, getDocuments } from "../services/api";
 
 function Chat(){
@@ -451,9 +452,9 @@ const findSimilarDocuments = async () => {
                     <div className="bg-gray-50 border border-gray-200
                                     rounded-xl p-5 min-h-[80px]">
 
-                        <p className="text-gray-700 leading-7 whitespace-pre-line">
-                            {answer}
-                        </p>
+                        <ReactMarkdown className="text-gray-700 leading-7">
+                             {answer}
+                        </ReactMarkdown>
 
                     </div>
 
