@@ -50,7 +50,7 @@ Answer:
 
      filename = metadata["filename"]
 
-    if filename not in sources:
+     if filename not in sources:
         sources.append(filename)
 
     return {
